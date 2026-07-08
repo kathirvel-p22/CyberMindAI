@@ -1,0 +1,66 @@
+// CyberMind AI - Autonomous Cyber Defense Operating System
+// Prisma schema for incidents, cyber memory, and executive chat history
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Incident {
+  id           String   @id @default(cuid())
+  title        String
+  description  String
+  severity     String   // critical | high | medium | low
+  status       String   // open | investigating | contained | resolved | closed
+  source       String   // agent | siem | edr | manual
+  mitreTactic  String?
+  mitreTechnique String?
+  assetAffected String?
+  attackerIp   String?
+  riskScore    Int      @default(50)
+  assignedTo   String?
+  response     String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model CyberMemory {
+  id          String   @id @default(cuid())
+  incidentId  String?
+  category    String   // incident | response | failure | recovery | lesson
+  title       String
+  summary     String
+  details     String
+  mitreTactic String?
+  severity    String?
+  lessonLearned String?
+  prevention  String?
+  createdAt   DateTime @default(now())
+}
+
+model ChatMessage {
+  id        String   @id @default(cuid())
+  role      String   // user | assistant
+  content   String
+  agent     String?  // executive-copilot | incident-analyst | threat-hunter
+  sessionId String
+  createdAt DateTime @default(now())
+}
+
+model ThreatEvent {
+  id           String   @id @default(cuid())
+  type         String   // login | malware | exfil | scan | exploit | anomaly
+  severity     String   // critical | high | medium | low
+  sourceIp     String
+  targetAsset  String
+  description  String
+  mitreTactic  String?
+  mitreTechnique String?
+  status       String   @default("active") // active | mitigated | resolved
+  riskScore    Int      @default(50)
+  createdAt    DateTime @default(now())
+}
