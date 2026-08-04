@@ -187,10 +187,142 @@ io.on('connection', (socket) => {
   socket.emit('agent-pulse', generateAgentPulse())
 })
 
+// ---------------------------------------------------------------------------
+// Real-time burst events - sudden attack spikes
+// ---------------------------------------------------------------------------
+function generateBurstEvent() {
+  const burstTypes = [
+    { name: 'DDoS Attack', count: randInt(50, 200), duration: 30 },
+    { name: 'Credential Stuffing', count: randInt(100, 500), duration: 45 },
+    { name: 'Port Scan Sweep', count: randInt(30, 150), duration: 20 },
+    { name: 'Ransomware Campaign', count: randInt(10, 50), duration: 60 },
+  ]
+  const burst = rand(burstTypes)
+  io.emit('burst-alert', {
+    type: burst.name,
+    threatCount: burst.count,
+    duration: burst.duration,
+    severity: 'critical',
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time agent activity notifications
+// ---------------------------------------------------------------------------
+function generateAgentActivity() {
+  const activities = [
+    { agent: 'threat-hunter', action: 'Identified lateral movement pattern', status: 'warning' },
+    { agent: 'autonomous-response', action: 'Quarantined compromised endpoint', status: 'success' },
+    { agent: 'vulnerability-analyst', action: 'Found 3 critical CVEs in production', status: 'critical' },
+    { agent: 'forensics', action: 'Memory dump analysis completed', status: 'info' },
+    { agent: 'network-guardian', action: 'Blocked 127 malicious IPs', status: 'success' },
+    { agent: 'compliance', action: 'NIST control gap detected', status: 'warning' },
+  ]
+  const activity = rand(activities)
+  io.emit('agent-activity', {
+    ...activity,
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time compliance status changes
+// ---------------------------------------------------------------------------
+function generateComplianceUpdate() {
+  const frameworks = ['ISO 27001', 'NIST 800-53', 'CIS Controls', 'PCI DSS', 'SOC 2']
+  const controls = ['AC-2', 'IA-5', 'SC-7', 'AU-12', 'CM-7', 'SI-4']
+  io.emit('compliance-update', {
+    framework: rand(frameworks),
+    control: rand(controls),
+    status: rand(['compliant', 'non-compliant', 'degraded']),
+    score: randInt(65, 98),
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time incident status updates
+// ---------------------------------------------------------------------------
+function generateIncidentUpdate() {
+  const statuses = ['open', 'investigating', 'contained', 'resolved']
+  const incidentId = `INC-${randInt(2000, 2999)}`
+  io.emit('incident-update', {
+    id: incidentId,
+    status: rand(statuses),
+    severity: rand(SEVERITIES),
+    assignedTo: rand(['SOC Analyst', 'IR Team', 'Security Engineer', 'CISO']),
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time vulnerability feed
+// ---------------------------------------------------------------------------
+function generateVulnerability() {
+  const cveYear = randInt(2023, 2025)
+  const cveId = `CVE-${cveYear}-${randInt(1000, 99999)}`
+  const cvssScore = (randInt(40, 100) / 10).toFixed(1)
+  io.emit('vulnerability', {
+    cveId,
+    cvssScore: parseFloat(cvssScore),
+    severity: parseFloat(cvssScore) >= 9 ? 'critical' : parseFloat(cvssScore) >= 7 ? 'high' : 'medium',
+    affectedAssets: randInt(1, 50),
+    description: `New vulnerability detected in production environment`,
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time threat intelligence feed
+// ---------------------------------------------------------------------------
+function generateThreatIntel() {
+  const iocTypes = ['IP', 'Domain', 'Hash', 'URL']
+  const sources = ['AlienVault OTX', 'VirusTotal', 'Cisco Talos', 'MISP', 'Internal']
+  io.emit('threat-intel', {
+    iocType: rand(iocTypes),
+    iocValue: rand(iocTypes) === 'IP' ? randomIp() : `malicious-${randInt(1000, 9999)}.example.com`,
+    source: rand(sources),
+    confidence: randInt(60, 99),
+    firstSeen: new Date(Date.now() - randInt(1, 72) * 3600000).toISOString(),
+    timestamp: new Date().toISOString(),
+  })
+}
+
+// ---------------------------------------------------------------------------
+// Real-time network anomaly detection
+// ---------------------------------------------------------------------------
+function generateNetworkAnomaly() {
+  const anomalyTypes = [
+    'Unusual data transfer volume',
+    'Off-hours authentication',
+    'Geographic anomaly',
+    'Protocol violation',
+    'Beaconing detected',
+  ]
+  io.emit('network-anomaly', {
+    type: rand(anomalyTypes),
+    source: randomIp(),
+    destination: rand(TARGET_ASSETS),
+    anomalyScore: randInt(60, 95),
+    baselineDeviation: `${randInt(200, 800)}%`,
+    timestamp: new Date().toISOString(),
+  })
+}
+
 // Emit loop — threats every ~4s, agent pulses every ~6s, metrics every ~5s
 setInterval(() => io.emit('threat', generateThreat()), 4000)
 setInterval(() => io.emit('agent-pulse', generateAgentPulse()), 6000)
 setInterval(tickMetrics, 5000)
+
+// New real-time features
+setInterval(generateAgentActivity, 8000) // Agent activities every 8s
+setInterval(generateVulnerability, 15000) // New vulnerabilities every 15s
+setInterval(generateThreatIntel, 12000) // Threat intel every 12s
+setInterval(generateNetworkAnomaly, 10000) // Network anomalies every 10s
+setInterval(generateComplianceUpdate, 20000) // Compliance updates every 20s
+setInterval(generateIncidentUpdate, 18000) // Incident updates every 18s
+setInterval(generateBurstEvent, 45000) // Burst events every 45s (occasional spikes)
 
 httpServer.listen(PORT, () => {
   console.log(`[CyberMind] Threat stream service running on port ${PORT}`)

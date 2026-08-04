@@ -21,8 +21,33 @@ CyberMind AI is an advanced, AI-powered autonomous cyber defense platform that o
    - Active threat monitoring
    - Event stream analytics (4,180+ events/min)
    - MTTR tracking
+   - Global threat map with attack origin tracking
 
-2. **AI Agents** - 10-agent autonomous orchestration
+2. **Real-Time Dashboard** - Live security metrics and alerts
+   - Network throughput monitoring
+   - CPU and memory usage tracking
+   - Active connections counter
+   - Live security alerts stream
+   - Agent activity logs
+   - System health indicators
+   - Sparkline visualizations
+
+3. **Live Terminal** - Interactive command console
+   - Real-time agent operations log
+   - Command execution interface
+   - Color-coded log levels (info, warning, error, success)
+   - Export logs functionality
+   - Pause/resume streaming
+   - Agent status updates
+
+4. **Network Traffic Monitor** - Real-time bandwidth analysis
+   - Inbound/outbound traffic graphs
+   - Packets per second tracking
+   - Threat blocking statistics
+   - Live traffic visualization
+   - 120-second rolling window
+
+5. **AI Agents** - 10-agent autonomous orchestration
    - Executive Analyst
    - Threat Hunter
    - Incident Responder
@@ -36,23 +61,23 @@ CyberMind AI is an advanced, AI-powered autonomous cyber defense platform that o
 
 ![AI Agents](shot-ai-agents.png)
 
-3. **Threat Intelligence** - Comprehensive threat tracking
+6. **Threat Intelligence** - Comprehensive threat tracking
    - CVE monitoring and analysis
    - Threat actor profiling
    - IOC (Indicators of Compromise) management
    - Real-time threat feeds
 
-4. **Attack Graph** - Visual attack path analysis
+7. **Attack Graph** - Visual attack path analysis
    - Path prediction and visualization
    - Kill chain mapping
    - Attack surface analysis
 
-5. **MITRE ATT&CK** - Tactic and technique mapping
+8. **MITRE ATT&CK** - Tactic and technique mapping
    - Full MITRE ATT&CK framework integration
    - Tactic coverage analysis
    - Technique detection mapping
 
-6. **Incident Management** - Complete lifecycle management
+9. **Incident Management** - Complete lifecycle management
    - Incident creation and tracking
    - Severity classification
    - Status workflow management
@@ -60,7 +85,7 @@ CyberMind AI is an advanced, AI-powered autonomous cyber defense platform that o
 
 ![Incidents](shot-incidents.png)
 
-7. **Executive Copilot** - AI-powered risk briefing
+10. **Executive Copilot** - AI-powered risk briefing
    - Executive-level security summaries
    - Risk trend analysis
    - Strategic recommendations
@@ -68,13 +93,13 @@ CyberMind AI is an advanced, AI-powered autonomous cyber defense platform that o
 
 ![Executive Copilot](shot-copilot.png)
 
-8. **Cyber Memory** - Organizational learning system
+11. **Cyber Memory** - Organizational learning system
    - Incident memory storage
    - Pattern recognition
    - Historical analysis
    - Lessons learned repository
 
-9. **Compliance** - Multi-framework compliance tracking
+12. **Compliance** - Multi-framework compliance tracking
    - ISO 27001 mapping
    - NIST framework alignment
    - CIS Controls
@@ -173,14 +198,20 @@ bun lint             # Run ESLint
 
 ## 🔒 Security Features
 
-- ✅ Real-time threat detection
-- ✅ Autonomous response capabilities
-- ✅ MITRE ATT&CK framework integration
-- ✅ Multi-agent AI orchestration
-- ✅ SIEM, EDR, and OT integration ready
-- ✅ Cloud security monitoring
-- ✅ Compliance automation
-- ✅ Risk scoring and prediction
+- ✅ **Real-time threat detection** with live streaming
+- ✅ **Autonomous response capabilities** with playbook automation
+- ✅ **MITRE ATT&CK framework integration** with technique mapping
+- ✅ **Multi-agent AI orchestration** (10 specialized agents)
+- ✅ **SIEM, EDR, and OT integration** ready
+- ✅ **Cloud security monitoring** for hybrid environments
+- ✅ **Compliance automation** (ISO 27001, NIST, CIS)
+- ✅ **Risk scoring and prediction** with AI models
+- ✅ **Live terminal** with command execution
+- ✅ **Network traffic monitoring** with real-time graphs
+- ✅ **WebSocket-based threat streaming** (Socket.IO)
+- ✅ **Interactive dashboards** with live metrics
+- ✅ **Security alert notifications** with auto-classification
+- ✅ **System health monitoring** with uptime tracking
 
 ## 📊 System Architecture
 

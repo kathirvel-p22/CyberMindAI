@@ -34,6 +34,9 @@ const Incidents = dynamic(() => import('@/components/cyber/incidents'), { ssr: f
 const ExecutiveCopilot = dynamic(() => import('@/components/cyber/executive-copilot'), { ssr: false })
 const CyberMemory = dynamic(() => import('@/components/cyber/cyber-memory'), { ssr: false })
 const Compliance = dynamic(() => import('@/components/cyber/compliance'), { ssr: false })
+const RealTimeDashboard = dynamic(() => import('@/components/cyber/real-time-dashboard'), { ssr: false })
+const LiveTerminal = dynamic(() => import('@/components/cyber/live-terminal'), { ssr: false })
+const NetworkTrafficMonitor = dynamic(() => import('@/components/cyber/network-traffic-monitor'), { ssr: false })
 
 type SectionId =
   | 'command'
@@ -45,9 +48,15 @@ type SectionId =
   | 'copilot'
   | 'memory'
   | 'compliance'
+  | 'realtime'
+  | 'terminal'
+  | 'network'
 
 const NAV: { id: SectionId; label: string; icon: typeof LayoutDashboard; hint: string }[] = [
   { id: 'command', label: 'Command Center', icon: LayoutDashboard, hint: 'Live SOC overview' },
+  { id: 'realtime', label: 'Real-Time Dashboard', icon: Activity, hint: 'Live metrics & alerts' },
+  { id: 'terminal', label: 'Live Terminal', icon: Activity, hint: 'Command console' },
+  { id: 'network', label: 'Network Monitor', icon: Network, hint: 'Traffic analysis' },
   { id: 'agents', label: 'AI Agents', icon: Bot, hint: '10-agent orchestration' },
   { id: 'threats', label: 'Threat Intel', icon: Radar, hint: 'CVEs · Actors · IOCs' },
   { id: 'graph', label: 'Attack Graph', icon: Network, hint: 'Path & prediction' },
@@ -161,6 +170,9 @@ export default function Home() {
           <div className="p-4 lg:p-6">
             <SectionHeader section={section} />
             {section === 'command' && <CommandCenter stream={stream} />}
+            {section === 'realtime' && <RealTimeDashboard />}
+            {section === 'terminal' && <LiveTerminal />}
+            {section === 'network' && <NetworkTrafficMonitor />}
             {section === 'agents' && <AiAgents stream={stream} />}
             {section === 'threats' && <ThreatIntel />}
             {section === 'graph' && <AttackGraph />}
